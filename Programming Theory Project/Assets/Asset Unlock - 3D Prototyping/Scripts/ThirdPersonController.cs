@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class ThirdPersonController : MonoBehaviour
 {
-    public Camera GameCamera;
     private float initSpeed = 5.0f;
     private float playerSpeed = 5.0f;
+    private float frontLimit = -13.0f;
     
     private CharacterController m_Controller;
     private Animator m_Animator;
     private Vector3 playerVelocity;
+    private Vector3 input;
     private bool groundedPlayer;
 
     private void Start()
@@ -22,9 +23,11 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
-        CheckForGroundedPlayer();
+        input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         Run();
         MovePlayer();
+        CheckForBoundries();
+        CheckForGroundedPlayer();
     }
 
     void Run()
@@ -41,8 +44,6 @@ public class ThirdPersonController : MonoBehaviour
 
     void MovePlayer()
     {
-        Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
         Vector3 move = input;
         move.y = 0;
 
@@ -50,6 +51,15 @@ public class ThirdPersonController : MonoBehaviour
 
         m_Animator.SetFloat("MovementX", input.x);
         m_Animator.SetFloat("MovementZ", input.z);
+    }
+
+    void CheckForBoundries()
+    {
+        Vector3 pos = transform.position;
+        if (pos.z > frontLimit)
+        {
+            transform.position = new Vector3(pos.x, pos.y, frontLimit);
+        }
     }
 
     void CheckForGroundedPlayer()

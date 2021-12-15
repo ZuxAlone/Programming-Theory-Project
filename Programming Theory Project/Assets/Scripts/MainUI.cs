@@ -12,6 +12,7 @@ public class MainUI : MonoBehaviour
 
     public void UpdatePoints()
     {
+        // ENCAPSULATION
         pointsText.text = "Points: " + player.Points;
     }
 

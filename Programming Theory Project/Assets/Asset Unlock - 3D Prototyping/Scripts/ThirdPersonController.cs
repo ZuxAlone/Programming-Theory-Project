@@ -24,6 +24,7 @@ public class ThirdPersonController : MonoBehaviour
     void Update()
     {
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        // ABSTRACTION
         Run();
         MovePlayer();
         CheckForBoundries();

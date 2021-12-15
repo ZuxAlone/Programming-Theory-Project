@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
+    // ENCAPSULATION
     private int points = 0;
     public int Points
     {
